@@ -41,7 +41,7 @@
     "@spartacus/tracking": "~2211.32.1",
     "@spartacus/user": "~2211.32.1",
     "angular-oauth2-oidc": "^17.0.1",
-    "bootstrap": "^4.6.2",
+    "bootstrap": "^5.0.0",
     "contentful": "^11.4.4",
     "i18next": "^23.7.6",
     "i18next-http-backend": "^2.4.2",
