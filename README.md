@@ -24,5 +24,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 ## Further help
 
-For more information on the Composable Storefront Integration Library for Contentful check out the [Getting Started - Demo Setup](https://github.com/contentful/composable-storefront-integration-library/wiki/Getting-started-%E2%80%90-Demo-setup) page./
+For more information on the Composable Storefront Integration Library for Contentful check out the [Getting Started - Demo Setup](https://github.com/contentful/composable-storefront-integration-library/wiki/Getting-started-%E2%80%90-Demo-setup) page.
+
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
