@@ -1,11 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ConverterService, LanguageService, PageContext, PageType } from '@spartacus/core';
+import { UserAccountFacade } from '@spartacus/user/account/root';
 
-import { EntryCollection } from 'contentful';
+import { Entry } from 'contentful';
 import { of } from 'rxjs';
 
 import { PageSkeleton } from '../../core/content-types';
+import { RestrictionsService } from '../../core/services/contentful-restrictions.service';
 import { ContentService } from '../../core/services/contentful.service';
 import { ContentfulCmsPageAdapter } from './contentful-cms-page.adapter';
 
@@ -48,17 +50,24 @@ describe('ContentfulCmsPageAdapter', () => {
   let adapter: ContentfulCmsPageAdapter;
   let mockContentService: jasmine.SpyObj<ContentService>;
   let mockLanguageService: jasmine.SpyObj<LanguageService>;
+  let mockRestrictionsService: jasmine.SpyObj<RestrictionsService>;
+  let mockUserAccountService: jasmine.SpyObj<UserAccountFacade>;
   let converterService: ConverterService;
 
   beforeEach(() => {
-    mockContentService = jasmine.createSpyObj('ContentService', ['getPages']);
+    mockContentService = jasmine.createSpyObj('ContentService', ['getPage']);
     mockLanguageService = jasmine.createSpyObj('LanguageService', ['getActive']);
+    mockRestrictionsService = jasmine.createSpyObj('RestrictionsService', ['setUserPermissions']);
+    mockUserAccountService = jasmine.createSpyObj('UserAccountFacade', ['get']);
+    mockUserAccountService.get.and.returnValue(of(undefined));
 
     TestBed.configureTestingModule({
       providers: [
         ContentfulCmsPageAdapter,
         { provide: ContentService, useValue: mockContentService },
         { provide: LanguageService, useValue: mockLanguageService },
+        { provide: RestrictionsService, useValue: mockRestrictionsService },
+        { provide: UserAccountFacade, useValue: mockUserAccountService },
       ],
     });
 
@@ -69,7 +78,7 @@ describe('ContentfulCmsPageAdapter', () => {
     mockLanguageService = TestBed.inject(LanguageService) as jasmine.SpyObj<LanguageService>;
 
     spyOn(converterService, 'pipeable').and.callThrough();
-    mockContentService.getPages.and.returnValue(of({} as EntryCollection<PageSkeleton, undefined, string>));
+    mockContentService.getPage.and.returnValue(of({} as Entry<PageSkeleton, undefined, string>));
     mockLanguageService.getActive.and.returnValue(of('en'));
   });
 
@@ -80,49 +89,49 @@ describe('ContentfulCmsPageAdapter', () => {
   describe('load', () => {
     it('should pass correct params for homepage context', (done) => {
       adapter.load(homepagePageContext).subscribe(() => {
-        expect(mockContentService.getPages).toHaveBeenCalledWith({ pageSlug: 'homepage' }, 'en');
+        expect(mockContentService.getPage).toHaveBeenCalledWith({ pageSlug: 'homepage' }, 'en');
         done();
       });
     });
 
     it('should pass correct params for catalog context', (done) => {
       adapter.load(catalogPageContext).subscribe(() => {
-        expect(mockContentService.getPages).toHaveBeenCalledWith({ pageSlug: 'catalog' }, 'en');
+        expect(mockContentService.getPage).toHaveBeenCalledWith({ pageSlug: 'catalog' }, 'en');
         done();
       });
     });
 
     it('should pass correct params for category context', (done) => {
       adapter.load(categoryPageContext).subscribe(() => {
-        expect(mockContentService.getPages).toHaveBeenCalledWith({ pageSlug: 'catalog' }, 'en');
+        expect(mockContentService.getPage).toHaveBeenCalledWith({ pageSlug: 'catalog' }, 'en');
         done();
       });
     });
 
     it('should pass correct params for content context', (done) => {
       adapter.load(contentPageContext).subscribe(() => {
-        expect(mockContentService.getPages).toHaveBeenCalledWith({ pageSlug: 'test' }, 'en');
+        expect(mockContentService.getPage).toHaveBeenCalledWith({ pageSlug: 'test' }, 'en');
         done();
       });
     });
 
     it('should pass correct params for product context', (done) => {
       adapter.load(productPageContext).subscribe(() => {
-        expect(mockContentService.getPages).toHaveBeenCalledWith({ pageSlug: 'product' }, 'en');
+        expect(mockContentService.getPage).toHaveBeenCalledWith({ pageSlug: 'product' }, 'en');
         done();
       });
     });
 
     it('should pass correct params for smartedit context', (done) => {
       adapter.load(smarteditPageContext).subscribe(() => {
-        expect(mockContentService.getPages).toHaveBeenCalledWith({ pageSlug: 'homepage' }, 'en');
+        expect(mockContentService.getPage).toHaveBeenCalledWith({ pageSlug: 'homepage' }, 'en');
         done();
       });
     });
 
     it('should return empty params for undefined context', (done) => {
       adapter.load(undefinedPageContext).subscribe(() => {
-        expect(mockContentService.getPages).toHaveBeenCalledWith({}, 'en');
+        expect(mockContentService.getPage).toHaveBeenCalledWith({}, 'en');
         done();
       });
     });

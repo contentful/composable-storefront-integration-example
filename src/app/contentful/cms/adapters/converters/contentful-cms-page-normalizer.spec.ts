@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CmsStructureModel, PageRobotsMeta } from '@spartacus/core';
-import { CmsBannerComponent, CmsBannerComponentMedia, CmsNavigationComponent } from '@spartacus/core/src/model/cms.model';
+import { CmsComponent, CmsStructureModel, Converter, ConverterService, PageRobotsMeta } from '@spartacus/core';
 import { LayoutConfig } from '@spartacus/storefront';
 
 import { Entry } from 'contentful';
-import { EntryCollection } from 'contentful/dist/types/types/entry';
 
 import { ComponentSkeleton, FooterSkeleton, HeaderSkeleton, PageSkeleton } from '../../../core/content-types';
 import { DeepPartial } from '../../../core/helpers';
+import { RestrictionsService } from '../../../core/services/contentful-restrictions.service';
 import { ContentfulCmsPageNormalizer } from './contentful-cms-page-normalizer';
 
 const mockSiteLogoComponent: DeepPartial<Entry<ComponentSkeleton, undefined, string>> = {
@@ -246,41 +245,50 @@ const mockSection1Component2: DeepPartial<Entry<ComponentSkeleton, undefined, st
   },
 };
 
-const mockContentfulResponse: DeepPartial<EntryCollection<PageSkeleton, undefined, string>> = {
-  'total': 1,
-  'skip': 0,
-  'limit': 100,
-  'items': [
-    {
+const mockBreadcrumbComponent: DeepPartial<Entry<ComponentSkeleton, undefined, string>> = {
+  'sys': {
+    'type': 'Entry',
+    'id': 'breadcrumbComponent',
+    'contentType': {
       'sys': {
-        'id': 'page',
-        'type': 'Entry',
-        'contentType': {
-          'sys': {
-            'type': 'Link',
-            'linkType': 'ContentType',
-            'id': 'cmsPage',
-          },
-        },
-        'locale': 'en',
+        'type': 'Link',
+        'linkType': 'ContentType',
+        'id': 'BreadcrumbComponent',
       },
-      'fields': {
-        'internalName': 'Homepage',
-        'title': 'Homepage',
-        'label': 'Homepage',
-        'description': 'Powertools store homepage',
-        'robots': 'index, follow',
-        'slug': 'homepage',
-        'header': mockHeader as Entry<HeaderSkeleton, undefined, string>,
-        'footer': mockFooter as Entry<FooterSkeleton, undefined, string>,
-        'template': 'LandingPage2Template',
-        'Section1': [
-          mockSection1Component1 as Entry<ComponentSkeleton, undefined, string>,
-          mockSection1Component2 as Entry<ComponentSkeleton, undefined, string>,
-        ],
-      } as any,
     },
-  ],
+  },
+  'fields': {
+    'name': 'Breadcrumb CMS Component',
+  },
+};
+
+const mockPage: DeepPartial<Entry<PageSkeleton>> = {
+  'sys': {
+    'id': 'page',
+    'type': 'Entry',
+    'contentType': {
+      'sys': {
+        'type': 'Link',
+        'linkType': 'ContentType',
+        'id': 'cmsPage',
+      },
+    },
+    'locale': 'en',
+  },
+  'fields': {
+    'internalName': 'Homepage',
+    'title': 'Homepage',
+    'label': 'Homepage',
+    'description': 'Powertools store homepage',
+    'robots': 'index, follow',
+    'slug': 'homepage',
+    'type': 'ContentPage',
+    'header': mockHeader as Entry<HeaderSkeleton, undefined, string>,
+    'footer': mockFooter as Entry<FooterSkeleton, undefined, string>,
+    'template': 'LandingPage2Template',
+    'Section1': [mockSection1Component1 as Entry<ComponentSkeleton, undefined, string>, mockSection1Component2 as Entry<ComponentSkeleton, undefined, string>],
+    'BottomHeaderSlot': [mockBreadcrumbComponent as Entry<ComponentSkeleton, undefined, string>],
+  } as any,
 };
 
 const mockLayoutConfig: LayoutConfig = {
@@ -299,10 +307,22 @@ const mockLayoutConfig: LayoutConfig = {
 
 describe('ContentfulCmsPageNormalizer', () => {
   let normalizer: ContentfulCmsPageNormalizer;
+  let mockRestrictionsService: jasmine.SpyObj<RestrictionsService>;
+  let mockConverter: jasmine.SpyObj<Converter<Entry<ComponentSkeleton, undefined, string>, CmsComponent>>;
 
   beforeEach(() => {
+    mockRestrictionsService = jasmine.createSpyObj('RestrictionsService', ['isEntryAccessible']);
+    mockRestrictionsService.isEntryAccessible.and.returnValue(true);
+
+    mockConverter = jasmine.createSpyObj('ConverterService', ['convert']);
+
     TestBed.configureTestingModule({
-      providers: [ContentfulCmsPageNormalizer, { provide: LayoutConfig, useValue: mockLayoutConfig }],
+      providers: [
+        ContentfulCmsPageNormalizer,
+        { provide: LayoutConfig, useValue: mockLayoutConfig },
+        { provide: RestrictionsService, useValue: mockRestrictionsService },
+        { provide: ConverterService, useValue: mockConverter },
+      ],
     });
     normalizer = TestBed.inject(ContentfulCmsPageNormalizer);
   });
@@ -310,13 +330,15 @@ describe('ContentfulCmsPageNormalizer', () => {
   it('should normalize page data correctly', () => {
     const target: CmsStructureModel = {};
 
-    normalizer.convert(mockContentfulResponse as EntryCollection<PageSkeleton, undefined, string>, target);
+    normalizer.convert(mockPage as Entry<PageSkeleton, undefined, string>, target);
 
     expect(target.page).toBeDefined();
     expect(target.page?.name).toBe('Homepage');
     expect(target.page?.label).toBe('/homepage');
     expect(target.page?.title).toBe('Homepage');
     expect(target.page?.description).toBe('Powertools store homepage');
+    expect(target.page?.template).toBe('LandingPage2Template');
+    expect(target.page?.type).toBe('ContentPage');
     expect(target.page?.pageId).toBe('page');
     expect(target.page?.robots).toEqual([PageRobotsMeta.INDEX, PageRobotsMeta.FOLLOW]);
   });
@@ -324,24 +346,26 @@ describe('ContentfulCmsPageNormalizer', () => {
   it('should normalize entry slot data correctly', () => {
     const target: CmsStructureModel = {};
 
-    normalizer.convert(mockContentfulResponse as EntryCollection<PageSkeleton, undefined, string>, target);
+    normalizer.convert(mockPage as Entry<PageSkeleton, undefined, string>, target);
 
     expect(target.page?.slots?.['Section1'].components).toBeDefined();
     expect(target.page?.slots?.['SiteLogo'].components).toBeDefined();
     expect(target.page?.slots?.['MiniCart'].components).toBeDefined();
     expect(target.page?.slots?.['Footer'].components).toBeDefined();
+    expect(target.page?.slots?.['BottomHeaderSlot'].components).toBeDefined();
   });
 
   it('should normalize entry component data correctly', () => {
     const target: CmsStructureModel = {};
 
-    normalizer.convert(mockContentfulResponse as EntryCollection<PageSkeleton, undefined, string>, target);
+    normalizer.convert(mockPage as Entry<PageSkeleton, undefined, string>, target);
 
     expect(target.page?.slots?.['Section1'].components?.length).toBe(2);
     expect(target.page?.slots?.['Section1'].components?.some((component) => component.uid === 'section1Component1')).toBeTrue();
 
     const section1Component2 = target.page?.slots?.['Section1'].components?.find((component) => component.uid === 'section1Component2');
     expect(section1Component2?.flexType).toBe('SimpleResponsiveBannerComponent');
+    expect(section1Component2?.typeCode).toBe('SimpleResponsiveBannerComponent');
     expect(section1Component2?.properties?.data).toBeDefined();
     expect(section1Component2?.properties?.data.sys.id).toBe('section1Component2');
 
@@ -356,6 +380,7 @@ describe('ContentfulCmsPageNormalizer', () => {
 
     const anonymousConsentOpenDialog = target.page?.slots?.['Footer'].components?.find((component) => component.uid === 'anonymousConsentOpenDialog');
     expect(anonymousConsentOpenDialog?.flexType).toBe('AnonymousConsentOpenDialogComponent');
+    expect(anonymousConsentOpenDialog?.typeCode).toBe('CMSFlexComponent');
     expect(anonymousConsentOpenDialog?.properties?.data).toBeDefined();
     expect(anonymousConsentOpenDialog?.properties?.data.sys.id).toBe('anonymousConsentOpenDialog');
   });
@@ -363,23 +388,17 @@ describe('ContentfulCmsPageNormalizer', () => {
   it('should normalize component data correctly', () => {
     const target: CmsStructureModel = {};
 
-    normalizer.convert(mockContentfulResponse as EntryCollection<PageSkeleton, undefined, string>, target);
+    normalizer.convert(mockPage as Entry<PageSkeleton, undefined, string>, target);
 
-    const section1Component1 = target.components?.find((component) => component.uid === 'section1Component1') as CmsBannerComponent;
-    const section1ComponentMedia = section1Component1?.media as CmsBannerComponentMedia;
-    expect(section1Component1?.typeCode).toBe('SimpleResponsiveBannerComponent');
-    expect(section1Component1?.name).toBe('The Most Powerful Tools Banner');
-    expect(section1ComponentMedia?.url).toBe(
-      '//images.ctfassets.net/iuusg1rrhk56/2I0Vb1eknVwnABIEZBzmKq/05205806d60e4eab3df932e39319acc8/Powertools-1400x480-BigSplash-EN-01-1400W.jpg',
+    expect(mockConverter.convert).toHaveBeenCalledWith(mockSection1Component1 as Entry<ComponentSkeleton, undefined, string>, jasmine.any(Object));
+    expect(mockConverter.convert).toHaveBeenCalledWith(mockSection1Component2 as Entry<ComponentSkeleton, undefined, string>, jasmine.any(Object));
+    expect(mockConverter.convert).toHaveBeenCalledWith(mockBreadcrumbComponent as Entry<FooterSkeleton, undefined, string>, jasmine.any(Object));
+    expect(mockConverter.convert).toHaveBeenCalledWith(mockSiteLogoComponent as Entry<ComponentSkeleton, undefined, string>, jasmine.any(Object));
+    expect(mockConverter.convert).toHaveBeenCalledWith(mockMiniCartComponent as Entry<ComponentSkeleton, undefined, string>, jasmine.any(Object));
+    expect(mockConverter.convert).toHaveBeenCalledWith(mockFooterNavigationComponent as Entry<FooterSkeleton, undefined, string>, jasmine.any(Object));
+    expect(mockConverter.convert).toHaveBeenCalledWith(
+      mockAnonymousConsentOpenDialogComponent as Entry<ComponentSkeleton, undefined, string>,
+      jasmine.any(Object),
     );
-
-    expect(target.components?.some((component) => component.uid === 'section1Component2')).toBeTrue();
-    expect(target.components?.some((component) => component.uid === 'siteLogo')).toBeTrue();
-    expect(target.components?.some((component) => component.uid === 'miniCart')).toBeTrue();
-
-    const footerNavigation = target.components?.find((component) => component.uid === 'footerNavigation') as CmsNavigationComponent;
-    expect(footerNavigation?.navigationNode?.uid).toBe('footerNavNode');
-
-    expect(target.components?.some((component) => component.uid === 'anonymousConsentOpenDialog')).toBeTrue();
   });
 });

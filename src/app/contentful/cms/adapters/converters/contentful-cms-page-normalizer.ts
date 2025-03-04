@@ -1,42 +1,45 @@
 import { Injectable } from '@angular/core';
 
 import {
+  CMS_COMPONENT_NORMALIZER,
   CMS_FLEX_COMPONENT_TYPE,
   CmsComponent,
   CmsStructureModel,
   ContentSlotComponentData,
   ContentSlotData,
   Converter,
+  ConverterService,
   Page,
   PageRobotsMeta,
 } from '@spartacus/core';
 import { BREAKPOINT, LayoutConfig, LayoutSlotConfig, SlotConfig, SlotGroup } from '@spartacus/storefront';
 
-import { Entry, EntryCollection } from 'contentful';
+import { Entry } from 'contentful';
 
 import { ComponentSkeleton, FooterSkeleton, HeaderSkeleton, PageSkeleton } from '../../../core/content-types';
+import { RestrictionsService } from '../../../core/services/contentful-restrictions.service';
 import { isEntry, isResolvedEntry, isSlotConfig, isSlotGroup } from '../../../core/type-guards';
-import { normalizeMedia, normalizeNavigationNode, normalizeProductCodes } from './contentful-cms-normalizers';
 
 type EntryWithContentSlots = Entry<PageSkeleton, undefined, string> | Entry<HeaderSkeleton, undefined, string> | Entry<FooterSkeleton, undefined, string>;
 
 @Injectable({ providedIn: 'root' })
-export class ContentfulCmsPageNormalizer implements Converter<EntryCollection<PageSkeleton, undefined, string>, CmsStructureModel> {
-  constructor(private readonly config: LayoutConfig) {}
+export class ContentfulCmsPageNormalizer implements Converter<Entry<PageSkeleton, undefined, string>, CmsStructureModel> {
+  constructor(
+    private readonly config: LayoutConfig,
+    private readonly restrictionsService: RestrictionsService,
+    private readonly converter: ConverterService,
+  ) {}
 
-  convert(source: EntryCollection<PageSkeleton, undefined, string>, target: CmsStructureModel = {}): CmsStructureModel {
-    if (source.total > 0) {
-      const pageEntry = source.items[0];
-      this.normalizePageData(pageEntry, target);
-      this.normalizeEntryData(pageEntry, [pageEntry.fields.template], target);
+  convert(source: Entry<PageSkeleton, undefined, string>, target: CmsStructureModel = {}): CmsStructureModel {
+    this.normalizePageData(source, target);
+    this.normalizeEntryData(source, [source.fields.template], target, true);
 
-      if (isResolvedEntry<HeaderSkeleton>(pageEntry.fields.header)) {
-        this.normalizeEntryData(pageEntry.fields.header, ['header', 'navigation'], target);
-      }
+    if (isResolvedEntry<HeaderSkeleton>(source.fields.header)) {
+      this.normalizeEntryData(source.fields.header, ['header', 'navigation'], target);
+    }
 
-      if (isResolvedEntry<FooterSkeleton>(pageEntry.fields.footer)) {
-        this.normalizeEntryData(pageEntry.fields.footer, ['footer'], target);
-      }
+    if (isResolvedEntry<FooterSkeleton>(source.fields.footer)) {
+      this.normalizeEntryData(source.fields.footer, ['footer'], target);
     }
     return target;
   }
@@ -65,6 +68,9 @@ export class ContentfulCmsPageNormalizer implements Converter<EntryCollection<Pa
     if (source.fields.description) {
       page.description = source.fields.description;
     }
+    if (source.fields.type) {
+      page.type = source.fields.type;
+    }
 
     this.normalizeRobots(source, page);
 
@@ -77,8 +83,8 @@ export class ContentfulCmsPageNormalizer implements Converter<EntryCollection<Pa
    * 2. Slot-level component data
    * 3. Cms structure-level component data
    */
-  protected normalizeEntryData(source: EntryWithContentSlots, templateNames: string[], target: CmsStructureModel) {
-    const entrySlotComponents = this.getSlotComponentsFromEntry(source, templateNames);
+  protected normalizeEntryData(source: EntryWithContentSlots, templateNames: string[], target: CmsStructureModel, hasBottomHeaderSlot: boolean = false) {
+    const entrySlotComponents = this.getSlotComponentsFromEntry(source, templateNames, hasBottomHeaderSlot);
     this.normalizeEntrySlotData(Array.from(entrySlotComponents.keys()), target);
     this.normalizeEntryComponentData(entrySlotComponents, target);
     this.normalizeComponentData(entrySlotComponents, target);
@@ -88,8 +94,16 @@ export class ContentfulCmsPageNormalizer implements Converter<EntryCollection<Pa
    * Takes an Entry with fields that are named after Slots in corresponding Templates
    * and returns a map of component arrays that are contained within the Entry fields
    */
-  protected getSlotComponentsFromEntry(source: EntryWithContentSlots, templateNames: string[]): Map<string, Entry<ComponentSkeleton, undefined, string>[]> {
+  protected getSlotComponentsFromEntry(
+    source: EntryWithContentSlots,
+    templateNames: string[],
+    hasBottomHeaderSlot?: boolean,
+  ): Map<string, Entry<ComponentSkeleton, undefined, string>[]> {
     const templateSlotNames = this.getSlotNamesFromConfiguration(templateNames);
+    templateSlotNames.push('HeaderLinks');
+    if (hasBottomHeaderSlot) {
+      templateSlotNames.push('BottomHeaderSlot');
+    }
     const entryComponents = new Map<string, Entry<ComponentSkeleton, undefined, string>[]>();
     templateSlotNames
       .filter((slotName) => slotName in source.fields)
@@ -117,6 +131,7 @@ export class ContentfulCmsPageNormalizer implements Converter<EntryCollection<Pa
       components.filter(isResolvedEntry).forEach((component) => {
         const targetComponent: ContentSlotComponentData = {
           uid: component.sys.id,
+          typeCode: component.sys.contentType.sys.id,
           flexType: this.getFlexTypeFromComponent(component),
           properties: {
             data: component,
@@ -141,14 +156,12 @@ export class ContentfulCmsPageNormalizer implements Converter<EntryCollection<Pa
     entrySlotComponents.forEach((components) => {
       components.filter(isResolvedEntry<ComponentSkeleton>).forEach((sourceComponent) => {
         target.components ??= [];
-        const newComponent: CmsComponent = {
-          ...sourceComponent.fields,
-          uid: sourceComponent.sys.id,
-          typeCode: sourceComponent.sys.contentType.sys.id,
-        };
-        normalizeNavigationNode(sourceComponent, newComponent);
-        normalizeMedia(sourceComponent, newComponent);
-        normalizeProductCodes(sourceComponent, newComponent);
+
+        const newComponent: CmsComponent = this.converter.convert<Entry<ComponentSkeleton, undefined, string>, CmsComponent>(
+          sourceComponent,
+          CMS_COMPONENT_NORMALIZER,
+        );
+
         target.components.push(newComponent);
       });
     });
@@ -189,14 +202,13 @@ export class ContentfulCmsPageNormalizer implements Converter<EntryCollection<Pa
    * Returns an array of components from an entry field
    */
   protected getComponents(entry: Entry, field: string): Entry<ComponentSkeleton, undefined, string>[] {
-    if (!(field in entry.fields)) {
+    const components = entry.fields[field] as unknown;
+
+    if (!Array.isArray(components)) {
       return [];
     }
-    const componentsList = entry.fields[field];
-    if (!Array.isArray(componentsList)) {
-      return [];
-    }
-    return componentsList.filter(isEntry<ComponentSkeleton>);
+
+    return components.filter((component) => isEntry<ComponentSkeleton>(component) && this.restrictionsService.isEntryAccessible(component));
   }
 
   /**

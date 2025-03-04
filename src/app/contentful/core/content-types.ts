@@ -9,6 +9,7 @@ export type PageSkeleton = {
     description: EntryFieldTypes.Symbol;
     robots: EntryFieldTypes.Symbol;
     slug: EntryFieldTypes.Symbol;
+    type: EntryFieldTypes.Symbol;
     template: EntryFieldTypes.Symbol;
     header: EntryFieldTypes.EntryLink<HeaderSkeleton>;
     footer: EntryFieldTypes.EntryLink<FooterSkeleton>;

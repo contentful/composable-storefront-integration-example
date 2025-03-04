@@ -1,0 +1,16 @@
+{
+  "applications": [
+    {
+      "name": "cfi-gui",
+      "path": "apps/cfi-gui",
+      "ssr": {
+        "enabled": false,
+        "path": "dist/server/server.mjs"
+      },
+      "csr": {
+        "webroot": "dist/browser/"
+      }
+    }
+  ],
+  "nodeVersion": "20"
+}

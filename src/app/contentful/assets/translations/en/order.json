@@ -1,0 +1,10 @@
+{
+  "6ApUVJOYpbKBiUG16o8QoU": {
+    "tabs": {
+      "2wPye9ZYiLx2VSxhdgLOTz": "ALL ORDERS ({{param}})",
+      "3tkIzuR2T0rDVezsq73JH6": "RETURNS ({{param}})"
+    },
+    "tabPanelContainerRegion": "Group with order history details",
+    "tabPanelContainerRegionGroup": "Group with order history details"
+  }
+}
