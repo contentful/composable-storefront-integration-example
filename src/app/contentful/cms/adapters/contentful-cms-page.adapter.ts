@@ -11,9 +11,11 @@ import {
   PageType,
   SMART_EDIT_CONTEXT,
 } from '@spartacus/core';
+import { UserAccountFacade } from '@spartacus/user/account/root';
 
-import { Observable, switchMap } from 'rxjs';
+import { Observable, combineLatest, switchMap } from 'rxjs';
 
+import { RestrictionsService } from '../../core/services/contentful-restrictions.service';
 import { ContentService } from '../../core/services/contentful.service';
 
 type Slug = 'catalog' | 'category' | 'product' | 'content';
@@ -36,7 +38,9 @@ export class ContentfulCmsPageAdapter implements CmsPageAdapter {
   constructor(
     protected converter: ConverterService,
     protected contentService: ContentService,
+    protected restrictionService: RestrictionsService,
     protected languageService: LanguageService,
+    protected userAccount: UserAccountFacade,
   ) {}
 
   /**
@@ -45,9 +49,12 @@ export class ContentfulCmsPageAdapter implements CmsPageAdapter {
    */
   load(pageContext: PageContext): Observable<CmsStructureModel> {
     const params = this.getPagesRequestParams(pageContext);
-    return this.languageService
-      .getActive()
-      .pipe(switchMap((language) => this.contentService.getPages(params, language).pipe(this.converter.pipeable(CMS_PAGE_NORMALIZER))));
+    return combineLatest([this.languageService.getActive(), this.userAccount.get()]).pipe(
+      switchMap(([language, user]) => {
+        this.restrictionService.setUserPermissions(user);
+        return this.contentService.getPage(params, language).pipe(this.converter.pipeable(CMS_PAGE_NORMALIZER));
+      }),
+    );
   }
 
   /**

@@ -5,11 +5,19 @@ import { CmsComponent, Converter } from '@spartacus/core';
 import { Entry } from 'contentful';
 
 import { ComponentSkeleton } from '../../../core/content-types';
-import { normalizeMedia, normalizeNavigationNode, normalizeProductCodes } from './contentful-cms-normalizers';
+import { RestrictionsService } from '../../../core/services/contentful-restrictions.service';
 
 @Injectable({ providedIn: 'root' })
 export class ContentfulCmsComponentNormalizer implements Converter<Entry<ComponentSkeleton, undefined, string>, CmsComponent> {
-  convert(source: Entry<ComponentSkeleton, undefined, string>, target: CmsComponent = {}): CmsComponent {
+  constructor(private readonly restrictionsService: RestrictionsService) {}
+
+  convert(source: Entry<ComponentSkeleton, undefined, string>, target: CmsComponent): CmsComponent {
+    if (!this.restrictionsService.isEntryAccessible(source)) {
+      return {
+        uid: source.sys.id,
+      };
+    }
+
     target = {
       ...target,
       ...source.fields,
@@ -17,9 +25,6 @@ export class ContentfulCmsComponentNormalizer implements Converter<Entry<Compone
       typeCode: source.sys.contentType.sys.id,
     };
 
-    normalizeNavigationNode(source, target);
-    normalizeMedia(source, target);
-    normalizeProductCodes(source, target);
     return target;
   }
 }
