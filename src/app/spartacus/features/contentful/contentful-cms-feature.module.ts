@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { CmsConfig, provideConfig } from '@spartacus/core';
+import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
 
 import { ContentfulCmsModule } from '../../../contentful/cms/contentful-cms.module';
 import { ContentfulCoreModule } from '../../../contentful/core/contentful-core.module';
 
+import { contentfulTranslationChunksConfig, contentfulTranslations } from '../../../contentful/assets/translations/translations';
 import { CONTENTFUL_FEATURE, ContentfulRootModule } from '../../../contentful/root';
 
 @NgModule({
@@ -18,6 +19,12 @@ import { CONTENTFUL_FEATURE, ContentfulRootModule } from '../../../contentful/ro
         },
       },
       cmsComponents: {}, // custom components
+    }),
+    provideConfig(<I18nConfig>{
+      i18n: {
+        resources: contentfulTranslations,
+        chunks: contentfulTranslationChunksConfig,
+      },
     }),
   ],
 })
