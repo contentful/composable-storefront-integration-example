@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { CmsBannerComponent, CmsComponent, Converter } from '@spartacus/core';
-import { CmsBannerComponentMedia } from '@spartacus/core/src/model/cms.model';
+import { CmsBannerComponentMedia } from '@spartacus/core';
 
 import { Asset, Entry, UnresolvedLink } from 'contentful';
 
