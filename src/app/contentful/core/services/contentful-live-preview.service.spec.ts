@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NgZone, Renderer2, RendererFactory2 } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { InspectorModeDataAttributes } from '@contentful/live-preview/dist/inspectorMode/types';
@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import { ContentfulConfig } from '../../root/config/contentful-config';
 import { ContentfulAngularService } from './contentful-angular.service';
 import { ContentfulLivePreviewService } from './contentful-live-preview.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ContentfulLivePreviewService', () => {
   let service: ContentfulLivePreviewService;
@@ -29,27 +30,29 @@ describe('ContentfulLivePreviewService', () => {
     storeSpy = jasmine.createSpyObj('Store', ['dispatch']);
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, StoreModule.forRoot({})],
-      providers: [
+    imports: [StoreModule.forRoot({})],
+    providers: [
         { provide: ContentfulAngularService, useValue: contentfulAngularServiceSpy },
         {
-          provide: ContentfulConfig,
-          useValue: {
-            'init': jasmine.createSpy(),
-          },
+            provide: ContentfulConfig,
+            useValue: {
+                'init': jasmine.createSpy(),
+            },
         },
         { provide: NgZone, useValue: new NgZone({}) },
         {
-          provide: LanguageService,
-          useValue: {
-            getActive: () => of(locale),
-          },
+            provide: LanguageService,
+            useValue: {
+                getActive: () => of(locale),
+            },
         },
         { provide: RoutingService, useValue: routingServiceSpy },
         { provide: ConverterService, useValue: converterServiceSpy },
         { provide: Store, useValue: storeSpy },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     service = TestBed.inject(ContentfulLivePreviewService);
     contentfulAngularService = TestBed.inject(ContentfulAngularService) as jasmine.SpyObj<ContentfulAngularService>;
     routingService = TestBed.inject(RoutingService) as jasmine.SpyObj<RoutingService>;
