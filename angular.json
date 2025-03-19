@@ -113,6 +113,9 @@
             },
             "development": {
               "buildTarget": "contentful-spartacus-demo:build:development"
+            },
+            "local": {
+              "buildTarget": "contentful-spartacus-demo:build:local"
             }
           },
           "defaultConfiguration": "local"

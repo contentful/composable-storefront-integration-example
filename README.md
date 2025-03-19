@@ -103,3 +103,7 @@ Quick overview of the restricted components and the user roles required for them
 | ApprovalDashboardLink                    |           |       |          |    ✅    |         |       |                         |
 | MyCompanyLink                            |           |       |          |          |         |  ✅   |                         |
 | UnitLevelOrderLink                       |           |       |          |          |         |       |           ✅            |
+
+## Configuration
+
+In order to configure the Contentful CMS connection please add the proper space, branch and tokens token values to the `src/environments/environment.local.ts` file, which will be used during local app startup with `ng serve`.
