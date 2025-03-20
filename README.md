@@ -71,7 +71,7 @@ Selected default features and modules during initialization:
 - ⛔️ CPQ Quote Integration (b2b feature)
 - ⛔️ S/4HANA Service integration (b2b feature)
 - ⛔️ SAP Order Management Foundation Integration
-- ✅ SmartEdit
+- ⛔️ SmartEdit
 - ✅ Store Finder
 - ✅ Tracking - Personalization
 - ⛔️ Segment Reference

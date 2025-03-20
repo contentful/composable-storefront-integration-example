@@ -34,11 +34,6 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@spartacus/smartedit/assets",
-                "output": "assets/"
               }
             ],
             "styles": [
@@ -141,11 +136,6 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@spartacus/smartedit/assets",
-                "output": "assets/"
               }
             ],
             "styles": [
