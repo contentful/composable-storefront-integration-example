@@ -31,12 +31,9 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
               {
                 "glob": "**/*",
-                "input": "./node_modules/@spartacus/smartedit/assets",
-                "output": "assets/"
+                "input": "public"
               }
             ],
             "styles": [
@@ -54,7 +51,10 @@
             ],
             "scripts": [],
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules/"]
+              "includePaths": ["node_modules/"],
+              "sass": {
+                "silenceDeprecations": ["import"]
+              }
             }
           },
           "configurations": {
@@ -113,6 +113,9 @@
             },
             "development": {
               "buildTarget": "contentful-spartacus-demo:build:development"
+            },
+            "local": {
+              "buildTarget": "contentful-spartacus-demo:build:local"
             }
           },
           "defaultConfiguration": "local"
@@ -130,12 +133,9 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
               {
                 "glob": "**/*",
-                "input": "./node_modules/@spartacus/smartedit/assets",
-                "output": "assets/"
+                "input": "public"
               }
             ],
             "styles": [

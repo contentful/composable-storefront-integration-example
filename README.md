@@ -71,7 +71,7 @@ Selected default features and modules during initialization:
 - ⛔️ CPQ Quote Integration (b2b feature)
 - ⛔️ S/4HANA Service integration (b2b feature)
 - ⛔️ SAP Order Management Foundation Integration
-- ✅ SmartEdit
+- ⛔️ SmartEdit
 - ✅ Store Finder
 - ✅ Tracking - Personalization
 - ⛔️ Segment Reference
@@ -103,3 +103,7 @@ Quick overview of the restricted components and the user roles required for them
 | ApprovalDashboardLink                    |           |       |          |    ✅    |         |       |                         |
 | MyCompanyLink                            |           |       |          |          |         |  ✅   |                         |
 | UnitLevelOrderLink                       |           |       |          |          |         |       |           ✅            |
+
+## Configuration
+
+In order to configure the Contentful CMS connection please add the proper space, branch and tokens token values to the `src/environments/environment.local.ts` file, which will be used during local app startup with `ng serve`.

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 @Component({
   selector: 'cx-storefront',
   template: '',
+  standalone: false,
 })
 class MockCxStorefrontComponent {}
 

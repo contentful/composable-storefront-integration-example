@@ -74,7 +74,6 @@ import { OrganizationUserRegistrationFeatureModule } from './features/organizati
 import { ProductImageZoomFeatureModule } from './features/product/product-image-zoom-feature.module';
 import { ProductVariantsFeatureModule } from './features/product/product-variants-feature.module';
 import { QuoteFeatureModule } from './features/quote/quote-feature.module';
-import { SmartEditFeatureModule } from './features/smartedit/smart-edit-feature.module';
 import { StoreFinderFeatureModule } from './features/storefinder/store-finder-feature.module';
 import { PersonalizationFeatureModule } from './features/tracking/personalization-feature.module';
 import { UserFeatureModule } from './features/user/user-feature.module';
@@ -143,7 +142,6 @@ import { UserFeatureModule } from './features/user/user-feature.module';
     StoreFinderFeatureModule,
     AsmFeatureModule,
     AsmCustomer360FeatureModule,
-    SmartEditFeatureModule,
     ProductVariantsFeatureModule,
     ProductImageZoomFeatureModule,
     ContentfulCMSFeatureModule,
@@ -165,12 +163,9 @@ import { UserFeatureModule } from './features/user/user-feature.module';
       useExtractedBillingAddressComponent: true,
       showBillingAddressInDigitalPayments: true,
       showDownloadProposalButton: true,
-      showPromotionsInPDP: true,
       searchBoxV2: true,
-      recentSearches: true,
       trendingSearches: true,
       pdfInvoicesSortByInvoiceDate: true,
-      storeFrontLibCardParagraphTruncated: true,
       useProductCarouselBatchApi: true,
       productConfiguratorAttributeTypesV2: true,
       propagateErrorsToServer: true,

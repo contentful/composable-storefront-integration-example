@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": ["projects/**/*", "src/app/contentful/root/config/contentful-config.ts"],
   "overrides": [
     {
       "files": ["*.ts"],
@@ -27,7 +27,8 @@
             "prefix": ["app", "cx"],
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {
