@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { WindowRef } from '@spartacus/core';
+import { LoggerService, WindowRef } from '@spartacus/core';
 
-import { ContentfulClientApi, createClient } from 'contentful';
-import { from } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { ContentfulClientApi, Entry, createClient } from 'contentful';
+import { Observable, from, of } from 'rxjs';
 
 import { ContentfulCmsComponentRequest } from '../../cms/adapters/contentful-cms-component.adapter';
 import { ContentfulCmsPageRequest } from '../../cms/adapters/contentful-cms-page.adapter';
@@ -20,6 +22,7 @@ export class ContentService {
   constructor(
     protected config: ContentfulConfig,
     protected windowRef: WindowRef,
+    protected logger: LoggerService,
   ) {
     let isPreview = false;
 
@@ -45,8 +48,35 @@ export class ContentService {
     });
   }
 
-  getPages(req: ContentfulCmsPageRequest, locale?: string) {
-    return from(this.client.getEntries<PageSkeleton>({ content_type: 'cmsPage', 'fields.slug': req.pageSlug, include: 10, locale }));
+  private transformSlug(slug: string): string {
+    const slugMapping = this.config.contentful?.slugMapping ?? {};
+    for (const pattern in slugMapping) {
+      const regex = new RegExp(pattern);
+      if (regex.test(slug)) {
+        return slugMapping[pattern];
+      }
+    }
+    return slug;
+  }
+
+  getPage(req: ContentfulCmsPageRequest, locale?: string): Observable<Entry<PageSkeleton, undefined, string> | null> {
+    if (!req.pageSlug) {
+      this.logger.warn(`WARNING: Page slug is empty. Cannot fetch page.`);
+      return of(null);
+    }
+
+    const slug = this.transformSlug(req.pageSlug);
+
+    return from(this.client.getEntries<PageSkeleton>({ content_type: 'cmsPage', 'fields.slug': slug, include: 10, locale })).pipe(
+      map((pages) => {
+        if (pages.total === 0) {
+          this.logger.warn(`WARNING: No page found for slug "${slug}".`);
+          return null;
+        }
+
+        return pages.items[0];
+      }),
+    );
   }
 
   getComponents(req: ContentfulCmsComponentRequest, locale?: string) {

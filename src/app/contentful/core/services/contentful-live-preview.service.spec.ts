@@ -1,4 +1,5 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NgZone, Renderer2, RendererFactory2 } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { InspectorModeDataAttributes } from '@contentful/live-preview/dist/inspectorMode/types';
@@ -29,7 +30,7 @@ describe('ContentfulLivePreviewService', () => {
     storeSpy = jasmine.createSpyObj('Store', ['dispatch']);
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, StoreModule.forRoot({})],
+      imports: [StoreModule.forRoot({})],
       providers: [
         { provide: ContentfulAngularService, useValue: contentfulAngularServiceSpy },
         {
@@ -48,6 +49,8 @@ describe('ContentfulLivePreviewService', () => {
         { provide: RoutingService, useValue: routingServiceSpy },
         { provide: ConverterService, useValue: converterServiceSpy },
         { provide: Store, useValue: storeSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
       ],
     });
     service = TestBed.inject(ContentfulLivePreviewService);

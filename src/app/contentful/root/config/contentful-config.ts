@@ -14,6 +14,9 @@ export abstract class ContentfulConfig {
     environment?: string;
     deliveryApiUrl?: string;
     previewApiUrl?: string;
+    slugMapping?: {
+      [key: string]: string;
+    };
   };
 }
 

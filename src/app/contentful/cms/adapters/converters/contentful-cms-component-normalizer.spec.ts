@@ -6,6 +6,7 @@ import { Entry } from 'contentful';
 
 import { ComponentSkeleton } from '../../../core/content-types';
 import { DeepPartial } from '../../../core/helpers';
+import { RestrictionsService } from '../../../core/services/contentful-restrictions.service';
 import { ContentfulCmsComponentNormalizer } from './contentful-cms-component-normalizer';
 
 const mockComponent: DeepPartial<Entry<ComponentSkeleton, undefined, string>> = {
@@ -28,10 +29,13 @@ const mockComponent: DeepPartial<Entry<ComponentSkeleton, undefined, string>> = 
 
 describe('ContentfulCmsComponentNormalizer', () => {
   let normalizer: ContentfulCmsComponentNormalizer;
+  let mockRestrictionsService: jasmine.SpyObj<RestrictionsService>;
 
   beforeEach(() => {
+    mockRestrictionsService = jasmine.createSpyObj('RestrictionsService', ['isEntryAccessible']);
+    mockRestrictionsService.isEntryAccessible.and.returnValue(true);
     TestBed.configureTestingModule({
-      providers: [ContentfulCmsComponentNormalizer],
+      providers: [ContentfulCmsComponentNormalizer, { provide: RestrictionsService, useValue: mockRestrictionsService }],
     });
 
     normalizer = TestBed.inject(ContentfulCmsComponentNormalizer);
