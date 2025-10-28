@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "local": "ng serve --ssl --configuration local",
+    "dev": "ng serve --ssl --configuration development",
     "start": "ng serve --ssl",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

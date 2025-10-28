@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 /bazel-out
+.nx/
+.github/
 
 # Node
 /node_modules
