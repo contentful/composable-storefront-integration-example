@@ -50,7 +50,7 @@
     "@spartacus/styles": "~2211.37.0",
     "@spartacus/tracking": "~2211.37.0",
     "@spartacus/user": "~2211.37.0",
-    "angular-oauth2-oidc": "^19.0.0",
+    "angular-oauth2-oidc": "^20.0.0",
     "contentful": "^11.2.5",
     "i18next": "^24.2.1",
     "i18next-http-backend": "^3.0.1",
