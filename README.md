@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
 
+## Configuration
+
+In order to configure the Contentful CMS connection please add the proper space, branch and tokens token values to the `src/environments/environment.local.ts` file, which will be used during local app startup with `ng serve`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
@@ -104,6 +108,3 @@ Quick overview of the restricted components and the user roles required for them
 | MyCompanyLink                            |           |       |          |          |         |  ✅   |                         |
 | UnitLevelOrderLink                       |           |       |          |          |         |       |           ✅            |
 
-## Configuration
-
-In order to configure the Contentful CMS connection please add the proper space, branch and tokens token values to the `src/environments/environment.local.ts` file, which will be used during local app startup with `ng serve`.
