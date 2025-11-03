@@ -43,7 +43,7 @@ import { ContentfulConfig } from '../contentful/root/config/contentful-config';
     }),
     provideConfig(<FeaturesConfig>{
       features: {
-        level: '2211.31',
+        level: '2211.43',
       },
     }),
     provideConfig(<ContentfulConfig>{
