@@ -155,115 +155,87 @@ import { UserFeatureModule } from './features/user/user-feature.module';
   ],
   providers: [
     provideFeatureToggles({
-      showDeliveryOptionsTranslation: true,
-      // formErrorsDescriptiveMessages: true,
-      // showSearchingCustomerByOrderInASM: true,
-      // showStyleChangesInASM: true,
-      // shouldHideAddToCartForUnpurchasableProducts: true,
-      // useExtractedBillingAddressComponent: true,
-      // showBillingAddressInDigitalPayments: true,
-      // showDownloadProposalButton: true,
-      searchBoxV2: true,
-      trendingSearches: true,
-      // pdfInvoicesSortByInvoiceDate: true,
-      useProductCarouselBatchApi: true,
-      // productConfiguratorAttributeTypesV2: true,
-      propagateErrorsToServer: true,
-      ssrStrictErrorHandlingForHttpAndNgrx: true,
-      productConfiguratorDeltaRendering: true,
-      // a11yRequiredAsterisks: true,
-      // a11yQuantityOrderTabbing: true,
-      // a11yNavigationUiKeyboardControls: true,
-      a11yNavMenuExpandStateReadout: true,
-      // a11yOrderConfirmationHeadingOrder: true,
-      // a11yStarRating: true,
-      // a11yViewChangeAssistiveMessage: true,
-      a11yPreventHorizontalScroll: true,
-      // a11yReorderDialog: true,
-      // a11yPopoverFocus: true,
-      // a11yScheduleReplenishment: true,
-      // a11yScrollToTop: true,
-      // a11ySavedCartsZoom: true,
-      // a11ySortingOptionsTruncation: true,
-      // a11yExpandedFocusIndicator: true,
-      // a11yCheckoutDeliveryFocus: true,
-      // a11yMobileVisibleFocus: true,
-      // a11yOrganizationsBanner: true,
-      // a11yOrganizationListHeadingOrder: true,
-      a11yCartImportConfirmationMessage: true,
-      // a11yReplenishmentOrderFieldset: true,
-      // a11yListOversizedFocus: true,
-      // a11yStoreFinderOverflow: true,
-      a11yMobileFocusOnFirstNavigationItem: true,
-      // a11yCartSummaryHeadingOrder: true,
-      // a11ySearchBoxMobileFocus: true,
-      // a11yFacetKeyboardNavigation: true,
-      // a11yUnitsListKeyboardControls: true,
-      // a11yCartItemsLinksStyles: true,
-      a11ySearchboxLabel: true,
-      // a11yHideSelectBtnForSelectedAddrOrPayment: true,
-      // a11yFocusableCarouselControls: true,
-      a11yUseTrapTabInsteadOfTrapInDialogs: true,
-      // cmsGuardsServiceUseGuardsComposer: true,
-      // cartQuickOrderRemoveListeningToFailEvent: true,
-      a11yKeyboardAccessibleZoom: true,
-      // a11yOrganizationLinkableCells: true,
-      // a11yVisibleFocusOverflows: true,
-      // a11yTruncatedTextForResponsiveView: true,
-      // a11ySemanticPaginationLabel: true,
-      a11yPreventCartItemsFormRedundantRecreation: true,
-      // a11yPreventSRFocusOnHiddenElements: true,
-      // a11yMyAccountLinkOutline: true,
-      // a11yCloseProductImageBtnFocus: true,
-      // a11yNotificationPreferenceFieldset: true,
-      // a11yImproveContrast: true,
-      // a11yEmptyWishlistHeading: true,
-      // a11yScreenReaderBloatFix: true,
-      // a11yUseButtonsForBtnLinks: true,
-      a11yTabComponent: true,
-      a11yCarouselArrowKeysNavigation: true,
-      a11yPickupOptionsTabs: true,
-      // a11yNotificationsOnConsentChange: true,
-      // a11yDisabledCouponAndQuickOrderActionButtonsInsteadOfRequiredFields: true,
-      // a11yFacetsDialogFocusHandling: true,
-      headerLayoutForSmallerViewports: true,
-      // a11yStoreFinderAlerts: true,
-      // a11yFormErrorMuteIcon: true,
-      // a11yCxMessageFocus: true,
-      a11yLinkBtnsToTertiaryBtns: true,
-      a11yRepeatedPageTitleFix: true,
-      // a11yDeliveryModeRadiogroup: true,
-      a11yNgSelectOptionsCount: true,
-      a11yRepeatedCancelOrderError: true,
-      a11yAddedToCartActiveDialog: true,
-      // a11yNgSelectMobileReadout: true,
-      a11yDeliveryMethodFieldset: true,
-      a11yShowMoreReviewsBtnFocus: true,
-      a11yQuickOrderAriaControls: true,
-      a11yRemoveStatusLoadedRole: true,
-      a11yDialogsHeading: true,
-      a11yDialogTriggerRefocus: true,
-      a11yAddToWishlistFocus: true,
-      a11ySearchBoxFocusOnEscape: true,
-      a11yUpdatingCartNoNarration: true,
-      a11yPasswordVisibliltyBtnValueOverflow: true,
-      a11yItemCounterFocus: true,
-      a11yScrollToReviewByShowReview: true,
-      a11yViewHoursButtonIconContrast: true,
-      a11yCheckoutStepsLandmarks: true,
-      a11yQTY2Quantity: true,
-      a11yDeleteButton2First: true,
-      // occCartNameAndDescriptionInHttpRequestBody: true,
-      // cmsBottomHeaderSlotUsingFlexStyles: true,
-      useSiteThemeService: true,
-      enableConsecutiveCharactersPasswordRequirement: true,
-      enablePasswordsCannotMatchInPasswordUpdateForm: true,
-      allPageMetaResolversEnabledInCsr: true,
-      useExtendedMediaComponentConfiguration: true,
-      enableCarouselCategoryProducts: true,
-      enableClaimCustomerCouponWithCodeInRequestBody: true,
+      //activated by default - configurable
+      // propagateErrorsToServer: true,  // since 2211.38
+      // ssrStrictErrorHandlingForHttpAndNgrx: true,  // since 2211.38
+      // avoidCachingErrors: true,  //since 2211.38
+      // useSiteThemeService: true,  // since 2211.38
+      // enableConsecutiveCharactersPasswordRequirement: true,  //since 2211.38
+      // enablePasswordsCannotMatchInPasswordUpdateForm: true,  //since 2211.38
+      // allPageMetaResolversEnabledInCsr: true,  //since 2211.38
+      // searchBoxV2: true,  //since 2211.41
+      // trendingSearches: true,  //since 2211.41
+      // headerLayoutForSmallerViewports: true,  //since 2211.41
+      // useExtendedMediaComponentConfiguration: true,  //since 2211.41
+      // showRealTimeStockInPDP: true,  //since 2211.41
+      // enableSecurePasswordValidation: true,  //since 2211.41
+      // enableCarouselCategoryProducts: true,  //since 2211.42
+      // enableClaimCustomerCouponWithCodeInRequestBody: true,  //since 2211.42
+      // updateConsentGivenInOnChanges: true,  //since 2211.42
+
+      // a11yPreventHorizontalScroll: true, //since 2211.38
+      // a11yCartImportConfirmationMessage: true, //since 2211.38
+      // a11yMobileFocusOnFirstNavigationItem: true, //since 2211.38
+      // a11yUseTrapTabInsteadOfTrapInDialogs: true, //since 2211.38
+      // a11yTabComponent: true, //since 2211.38
+      // a11yCarouselArrowKeysNavigation: true, //since 2211.38
+      // a11yDeliveryMethodFieldset: true, //since 2211.38
+      //a11yShowMoreReviewsBtnFocus: true, //since 2211.38
+      // a11yDialogTriggerRefocus: true, //since 2211.38
+      // a11yAddToWishlistFocus: true, //since 2211.38
+      // a11ySearchBoxFocusOnEscape: true, //since 2211.38
+      // a11ySearchboxLabel: true, //since 2211.41
+      // a11yPickupOptionsTabs: true, //since 2211.41
+      // a11yUpdatingCartNoNarration: true,  //since 2211.41
+      // a11yPasswordVisibliltyBtnValueOverflow: true,  //since 2211.41
+      // a11yItemCounterFocus: true,  //since 2211.41
+      // a11yScrollToReviewByShowReview: true,  //since 2211.41
+      // a11yViewHoursButtonIconContrast: true,  //since 2211.41
+      // a11yCheckoutStepsLandmarks: true,  //since 2211.41
+      // a11yQTY2Quantity: true,  //since 2211.41
+      // a11yDeleteButton2First: true,  //since 2211.41
+      // a11yStyleExternalLinksAsLinks: true,  //since 2211.41
+      // a11ySelectLabelWithContextForSelectedAddrOrPayment: true,  //since 2211.41
+      // a11yTruncatedTextStoreFinder: true,  //since 2211.41
+      // a11yNgSelectCloseDropdownOnEscape: true,  //since 2211.41
+      // a11yStoreInStockIconContrast: true,  //since 2211.41
+      // a11yImproveButtonsInCardComponent: true,  //since 2211.41
+      // a11yWrapReviewOrderInSection: true,  //since 2211.41
+      // a11yApprovalProcessWithNoClearable: true,  //since 2211.41
+      // a11yPostRegisterSuccessMessage: true,  //since 2211.41
+      // a11yShowLabelOfSelect: true,  //since 2211.41
+      // a11yShowDownArrowOnFocusedSelectMenu: true,  //since 2211.41
+      // a11yCroppedFocusRing: true,  //since 2211.41
+      // a11yTextSpacingAdjustments: true,  //since 2211.41
+      // a11yTableHeaderReadout: true,  //since 2211.41
+      // a11ySearchboxAssistiveMessage: true,  //since 2211.41
+      // a11yDifferentiateFocusedAndSelected: true,  //since 2211.41
+      // a11yPdpGridArrangement: true,  //since 2211.41
+      // a11yUseProperTextColorForFutureStockAccordion: true,  //since 2211.42
+      // a11yPopoverHighContrast: true,  //since 2211.42
+      // a11yTabsManualActivation: true,  //since 2211.42
+      // a11yAnonymousConsentMessageInDialog: true,  //since 2211.42
+      // a11yQuickOrderSearchListKeyboardNavigation: true,  //since 2211.42
+      // a11yResetFocusAfterNavigating: true,  //since 2211.42
+      // a11yNgSelectAriaLabelDropdownCustomized: true,  //since 2211.42
+      // a11yMiniCartFocusOnMobile: true,  //since 2211.42
+      // a11yQuickOrderSearchBoxRefocusOnClose: true,  //since 2211.42
+      // a11yKeyboardFocusInSearchBox: true,  //since 2211.42
+      // a11yNavigationButtonsAriaFixes: true,  //since 2211.42
+      // a11yFocusOnCardAfterSelecting: true,  //since 2211.42
+      // a11ySearchableDropdownFirstElementFocus: true,  //since 2211.42
+      // a11yHideConsentButtonWhenBannerVisible: true,  //since 2211.42
+      // a11yRepeatingButtonsUniqueLabels: true,  //since 2211.42
+      // a11yHighContrastBorders: true,  //since 2211.42
+      // a11yRegionAssociatedHeaders: true,  //since 2211.42
+      // a11yHamburgerMenuTrapFocus: true,  //since 2211.42
+      // a11yScrollToTopPositioning: true,  //since 2211.42
+      // a11ySelectImprovementsCustomerTicketingCreateSelectbox: true,  //since 221121.1
+
+      //deactivated by default - configurable
       opfEnablePreventingFromCheckoutWithoutEmail: true,
       enableReadDomainValuesOnDemand: true,
+      //limitCacheByMemory: true,
       storeFinderFacadeCleanup: true,
       defaultProductPageRouteAllowsNoProductName: true,
       reserveHorizontalSpaceStarRating: true,
@@ -278,6 +250,23 @@ import { UserFeatureModule } from './features/user/user-feature.module';
       reserveSpaceForImagesOnPdpAndPlp: true,
       lazyLoadImagesByDefault: true,
       defaultLayoutConfigWithoutPageFold: true,
+      authorizationCodeFlowByDefault: true,
+      incrementProcessesCountForMergeCart: true,
+      dispatchLoginActionOnlyWhenTokenReceived: true,
+      cdsLoginEventsToken: true,
+      //a11yImprovedErrorMessages: true,
+      a11yWideScreenImprovements: true,
+      a11yOptimizedMenuSpacing: true,
+      a11yNgSelectLayering: true,
+      a11yNgSelectAriaControls: true,
+      a11yConfiguratorOverviewHeaderVPC: true,
+      //a11yNgSelectUnicodeCarets: true,
+      //a11yFutureStockAccordionAriaControls: true,
+      a11yStoreFinderLabel: true,
+      a11yAddPaddingToCarouselPanel: true,
+      a11yKeyboardAccessibleZoom: true,
+      a11yPreventCartItemsFormRedundantRecreation: true,
+      a11yLinkBtnsToTertiaryBtns: true,
     }),
   ],
 })
