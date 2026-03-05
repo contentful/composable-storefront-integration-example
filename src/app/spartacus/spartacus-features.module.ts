@@ -156,13 +156,6 @@ import { UserFeatureModule } from './features/user/user-feature.module';
   providers: [
     provideFeatureToggles({
       //activated by default - configurable
-      // propagateErrorsToServer: true,  // since 2211.38
-      // ssrStrictErrorHandlingForHttpAndNgrx: true,  // since 2211.38
-      // avoidCachingErrors: true,  //since 2211.38
-      // useSiteThemeService: true,  // since 2211.38
-      // enableConsecutiveCharactersPasswordRequirement: true,  //since 2211.38
-      // enablePasswordsCannotMatchInPasswordUpdateForm: true,  //since 2211.38
-      // allPageMetaResolversEnabledInCsr: true,  //since 2211.38
       // searchBoxV2: true,  //since 2211.41
       // trendingSearches: true,  //since 2211.41
       // headerLayoutForSmallerViewports: true,  //since 2211.41
@@ -173,17 +166,6 @@ import { UserFeatureModule } from './features/user/user-feature.module';
       // enableClaimCustomerCouponWithCodeInRequestBody: true,  //since 2211.42
       // updateConsentGivenInOnChanges: true,  //since 2211.42
 
-      // a11yPreventHorizontalScroll: true, //since 2211.38
-      // a11yCartImportConfirmationMessage: true, //since 2211.38
-      // a11yMobileFocusOnFirstNavigationItem: true, //since 2211.38
-      // a11yUseTrapTabInsteadOfTrapInDialogs: true, //since 2211.38
-      // a11yTabComponent: true, //since 2211.38
-      // a11yCarouselArrowKeysNavigation: true, //since 2211.38
-      // a11yDeliveryMethodFieldset: true, //since 2211.38
-      //a11yShowMoreReviewsBtnFocus: true, //since 2211.38
-      // a11yDialogTriggerRefocus: true, //since 2211.38
-      // a11yAddToWishlistFocus: true, //since 2211.38
-      // a11ySearchBoxFocusOnEscape: true, //since 2211.38
       // a11ySearchboxLabel: true, //since 2211.41
       // a11yPickupOptionsTabs: true, //since 2211.41
       // a11yUpdatingCartNoNarration: true,  //since 2211.41
