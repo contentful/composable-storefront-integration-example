@@ -7,7 +7,6 @@
     "dev": "ng serve --ssl --configuration development",
     "start": "ng serve --ssl",
     "build": "ng build",
-    "build:ssr": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --browsers ChromeNoSandbox",
     "prettier:write": "prettier --write .",
