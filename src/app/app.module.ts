@@ -1,5 +1,5 @@
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -15,7 +15,11 @@ import { externalModules } from '../environments/environment';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, StoreModule.forRoot({}), AppRoutingModule, EffectsModule.forRoot([]), SpartacusModule, ...externalModules],
-  providers: [provideHttpClient(withFetch(), withInterceptorsFromDi())],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
