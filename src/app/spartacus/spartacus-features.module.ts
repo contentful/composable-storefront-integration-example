@@ -156,30 +156,12 @@ import { UserFeatureModule } from './features/user/user-feature.module';
   providers: [
     provideFeatureToggles({
       //activated by default - configurable
-      // showRealTimeStockInPDP: true,  //since 2211.41
-      // enableSecurePasswordValidation: true,  //since 2211.41
       // enableCarouselCategoryProducts: true,  //since 2211.42
       // enableClaimCustomerCouponWithCodeInRequestBody: true,  //since 2211.42
       // updateConsentGivenInOnChanges: true,  //since 2211.42
-      //opfEnablePreventingFromCheckoutWithoutEmail: true,  //since 221121.4
+      // opfEnablePreventingFromCheckoutWithoutEmail: true,  //since 221121.4
+      // enableReadDomainValuesOnDemand: true,  //since 221121.5
 
-      // a11yStyleExternalLinksAsLinks: true,  //since 2211.41
-      // a11ySelectLabelWithContextForSelectedAddrOrPayment: true,  //since 2211.41
-      // a11yTruncatedTextStoreFinder: true,  //since 2211.41
-      // a11yNgSelectCloseDropdownOnEscape: true,  //since 2211.41
-      // a11yStoreInStockIconContrast: true,  //since 2211.41
-      // a11yImproveButtonsInCardComponent: true,  //since 2211.41
-      // a11yWrapReviewOrderInSection: true,  //since 2211.41
-      // a11yApprovalProcessWithNoClearable: true,  //since 2211.41
-      // a11yPostRegisterSuccessMessage: true,  //since 2211.41
-      // a11yShowLabelOfSelect: true,  //since 2211.41
-      // a11yShowDownArrowOnFocusedSelectMenu: true,  //since 2211.41
-      // a11yCroppedFocusRing: true,  //since 2211.41
-      // a11yTextSpacingAdjustments: true,  //since 2211.41
-      // a11yTableHeaderReadout: true,  //since 2211.41
-      // a11ySearchboxAssistiveMessage: true,  //since 2211.41
-      // a11yDifferentiateFocusedAndSelected: true,  //since 2211.41
-      // a11yPdpGridArrangement: true,  //since 2211.41
       // a11yUseProperTextColorForFutureStockAccordion: true,  //since 2211.42
       // a11yPopoverHighContrast: true,  //since 2211.42
       // a11yTabsManualActivation: true,  //since 2211.42
@@ -204,9 +186,9 @@ import { UserFeatureModule } from './features/user/user-feature.module';
       // a11yWideScreenImprovements: true,  //since 221121.4
       // a11yOptimizedMenuSpacing: true,  //since 221121.4
       // a11yNgSelectLayering: true,  //since 221121.4
+      // a11yNgSelectAriaControls: true,  //since 221121.5
 
       //deactivated by default - configurable
-      enableReadDomainValuesOnDemand: true,
       //limitCacheByMemory: true,
       storeFinderFacadeCleanup: true,
       defaultProductPageRouteAllowsNoProductName: true,
@@ -227,7 +209,6 @@ import { UserFeatureModule } from './features/user/user-feature.module';
       dispatchLoginActionOnlyWhenTokenReceived: true,
       cdsLoginEventsToken: true,
 
-      a11yNgSelectAriaControls: true,
       a11yConfiguratorOverviewHeaderVPC: true,
       //a11yNgSelectUnicodeCarets: true,
       //a11yFutureStockAccordionAriaControls: true,
