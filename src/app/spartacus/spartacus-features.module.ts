@@ -156,26 +156,13 @@ import { UserFeatureModule } from './features/user/user-feature.module';
   providers: [
     provideFeatureToggles({
       //activated by default - configurable
-      // searchBoxV2: true,  //since 2211.41
-      // trendingSearches: true,  //since 2211.41
-      // headerLayoutForSmallerViewports: true,  //since 2211.41
-      // useExtendedMediaComponentConfiguration: true,  //since 2211.41
       // showRealTimeStockInPDP: true,  //since 2211.41
       // enableSecurePasswordValidation: true,  //since 2211.41
       // enableCarouselCategoryProducts: true,  //since 2211.42
       // enableClaimCustomerCouponWithCodeInRequestBody: true,  //since 2211.42
       // updateConsentGivenInOnChanges: true,  //since 2211.42
+      //opfEnablePreventingFromCheckoutWithoutEmail: true,  //since 221121.4
 
-      // a11ySearchboxLabel: true, //since 2211.41
-      // a11yPickupOptionsTabs: true, //since 2211.41
-      // a11yUpdatingCartNoNarration: true,  //since 2211.41
-      // a11yPasswordVisibliltyBtnValueOverflow: true,  //since 2211.41
-      // a11yItemCounterFocus: true,  //since 2211.41
-      // a11yScrollToReviewByShowReview: true,  //since 2211.41
-      // a11yViewHoursButtonIconContrast: true,  //since 2211.41
-      // a11yCheckoutStepsLandmarks: true,  //since 2211.41
-      // a11yQTY2Quantity: true,  //since 2211.41
-      // a11yDeleteButton2First: true,  //since 2211.41
       // a11yStyleExternalLinksAsLinks: true,  //since 2211.41
       // a11ySelectLabelWithContextForSelectedAddrOrPayment: true,  //since 2211.41
       // a11yTruncatedTextStoreFinder: true,  //since 2211.41
@@ -213,9 +200,12 @@ import { UserFeatureModule } from './features/user/user-feature.module';
       // a11yHamburgerMenuTrapFocus: true,  //since 2211.42
       // a11yScrollToTopPositioning: true,  //since 2211.42
       // a11ySelectImprovementsCustomerTicketingCreateSelectbox: true,  //since 221121.1
+      // a11yImprovedErrorMessages: true,  //since 221121.4
+      // a11yWideScreenImprovements: true,  //since 221121.4
+      // a11yOptimizedMenuSpacing: true,  //since 221121.4
+      // a11yNgSelectLayering: true,  //since 221121.4
 
       //deactivated by default - configurable
-      opfEnablePreventingFromCheckoutWithoutEmail: true,
       enableReadDomainValuesOnDemand: true,
       //limitCacheByMemory: true,
       storeFinderFacadeCleanup: true,
@@ -236,10 +226,7 @@ import { UserFeatureModule } from './features/user/user-feature.module';
       incrementProcessesCountForMergeCart: true,
       dispatchLoginActionOnlyWhenTokenReceived: true,
       cdsLoginEventsToken: true,
-      //a11yImprovedErrorMessages: true,
-      a11yWideScreenImprovements: true,
-      a11yOptimizedMenuSpacing: true,
-      a11yNgSelectLayering: true,
+
       a11yNgSelectAriaControls: true,
       a11yConfiguratorOverviewHeaderVPC: true,
       //a11yNgSelectUnicodeCarets: true,
