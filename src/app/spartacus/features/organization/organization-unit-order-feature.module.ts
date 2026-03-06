@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
-import { unitOrderTranslationChunksConfig, unitOrderTranslations } from '@spartacus/organization/unit-order/assets';
+import { unitOrderTranslationChunksConfig, unitOrderTranslationsDe, unitOrderTranslationsEn } from '@spartacus/organization/unit-order/assets';
 import { ORGANIZATION_UNIT_ORDER_FEATURE, UnitOrderRootModule } from '@spartacus/organization/unit-order/root';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { ORGANIZATION_UNIT_ORDER_FEATURE, UnitOrderRootModule } from '@spartacus
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: unitOrderTranslations,
+        resources: { en: unitOrderTranslationsEn, de: unitOrderTranslationsDe },
         chunks: unitOrderTranslationChunksConfig,
       },
     }),

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
-import { orderApprovalTranslationChunksConfig, orderApprovalTranslations } from '@spartacus/organization/order-approval/assets';
+import { orderApprovalTranslationChunksConfig, orderApprovalTranslationsDe, orderApprovalTranslationsEn } from '@spartacus/organization/order-approval/assets';
 import { ORGANIZATION_ORDER_APPROVAL_FEATURE, OrderApprovalRootModule } from '@spartacus/organization/order-approval/root';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { ORGANIZATION_ORDER_APPROVAL_FEATURE, OrderApprovalRootModule } from '@s
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: orderApprovalTranslations,
+        resources: { en: orderApprovalTranslationsEn, de: orderApprovalTranslationsDe },
         chunks: orderApprovalTranslationChunksConfig,
       },
     }),

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { asmTranslationChunksConfig, asmTranslations } from '@spartacus/asm/assets';
+import { asmTranslationChunksConfig, asmTranslationsDe, asmTranslationsEn } from '@spartacus/asm/assets';
 import { ASM_FEATURE, AsmRootModule } from '@spartacus/asm/root';
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
 
@@ -17,7 +17,7 @@ import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: asmTranslations,
+        resources: { en: asmTranslationsEn, de: asmTranslationsDe },
         chunks: asmTranslationChunksConfig,
       },
     }),

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { translationChunksConfig, translations } from '@spartacus/assets';
+import { translationChunksConfig, translationsDe, translationsEn } from '@spartacus/assets';
 import { FeaturesConfig, I18nConfig, OccConfig, SiteContextConfig, provideConfig, provideDefaultConfig } from '@spartacus/core';
 import { defaultB2bOccConfig } from '@spartacus/setup';
 import { defaultCmsContentProviders, layoutConfig, mediaConfig } from '@spartacus/storefront';
@@ -33,7 +33,7 @@ import { ContentfulConfig } from '../contentful/root/config/contentful-config';
     }),
     provideDefaultConfig(<I18nConfig>{
       i18n: {
-        resources: translations,
+        resources: { en: translationsEn, de: translationsDe },
         chunks: {
           ...translationChunksConfig,
           myAccount: ['closeAccount', 'updatePasswordForm', 'updateProfileForm', 'consentManagementForm', 'myCoupons', 'notificationPreference', 'myInterests'],

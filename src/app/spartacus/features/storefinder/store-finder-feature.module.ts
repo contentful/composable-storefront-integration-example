@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
-import { storeFinderTranslationChunksConfig, storeFinderTranslations } from '@spartacus/storefinder/assets';
+import { storeFinderTranslationChunksConfig, storeFinderTranslationsDe, storeFinderTranslationsEn } from '@spartacus/storefinder/assets';
 import { STORE_FINDER_FEATURE, StoreFinderRootModule } from '@spartacus/storefinder/root';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { STORE_FINDER_FEATURE, StoreFinderRootModule } from '@spartacus/storefin
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: storeFinderTranslations,
+        resources: { en: storeFinderTranslationsEn, de: storeFinderTranslationsDe },
         chunks: storeFinderTranslationChunksConfig,
       },
     }),
