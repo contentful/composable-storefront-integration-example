@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { importExportTranslationChunksConfig, importExportTranslations } from '@spartacus/cart/import-export/assets';
+import { importExportTranslationChunksConfig, importExportTranslationsDe, importExportTranslationsEn } from '@spartacus/cart/import-export/assets';
 import { CART_IMPORT_EXPORT_FEATURE, ImportExportRootModule } from '@spartacus/cart/import-export/root';
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
 
@@ -17,7 +17,7 @@ import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: importExportTranslations,
+        resources: { en: importExportTranslationsEn, de: importExportTranslationsDe },
         chunks: importExportTranslationChunksConfig,
       },
     }),

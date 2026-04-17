@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
-import { accountSummaryTranslationChunksConfig, accountSummaryTranslations } from '@spartacus/organization/account-summary/assets';
+import {
+  accountSummaryTranslationChunksConfig,
+  accountSummaryTranslationsDe,
+  accountSummaryTranslationsEn,
+} from '@spartacus/organization/account-summary/assets';
 import { AccountSummaryRootModule, ORGANIZATION_ACCOUNT_SUMMARY_FEATURE } from '@spartacus/organization/account-summary/root';
 
 @NgModule({
@@ -17,7 +21,7 @@ import { AccountSummaryRootModule, ORGANIZATION_ACCOUNT_SUMMARY_FEATURE } from '
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: accountSummaryTranslations,
+        resources: { en: accountSummaryTranslationsEn, de: accountSummaryTranslationsDe },
         chunks: accountSummaryTranslationChunksConfig,
       },
     }),

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { cartBaseTranslationChunksConfig, cartBaseTranslations } from '@spartacus/cart/base/assets';
+import { cartBaseTranslationChunksConfig, cartBaseTranslationsDe, cartBaseTranslationsEn } from '@spartacus/cart/base/assets';
 import { ADD_TO_CART_FEATURE, CART_BASE_FEATURE, CartBaseRootModule, MINI_CART_FEATURE } from '@spartacus/cart/base/root';
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
 
@@ -31,7 +31,7 @@ import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: cartBaseTranslations,
+        resources: { en: cartBaseTranslationsEn, de: cartBaseTranslationsDe },
         chunks: cartBaseTranslationChunksConfig,
       },
     }),

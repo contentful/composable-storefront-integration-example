@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 
-import { checkoutB2BTranslationChunksConfig, checkoutB2BTranslations } from '@spartacus/checkout/b2b/assets';
+import { checkoutB2BTranslationChunksConfig, checkoutB2BTranslationsDe, checkoutB2BTranslationsEn } from '@spartacus/checkout/b2b/assets';
 import { CheckoutB2BRootModule } from '@spartacus/checkout/b2b/root';
-import { checkoutTranslationChunksConfig, checkoutTranslations } from '@spartacus/checkout/base/assets';
+import { checkoutTranslationChunksConfig, checkoutTranslationsDe, checkoutTranslationsEn } from '@spartacus/checkout/base/assets';
 import { CHECKOUT_FEATURE, CheckoutRootModule } from '@spartacus/checkout/base/root';
 import {
   checkoutScheduledReplenishmentTranslationChunksConfig,
-  checkoutScheduledReplenishmentTranslations,
+  checkoutScheduledReplenishmentTranslationsDe,
+  checkoutScheduledReplenishmentTranslationsEn,
 } from '@spartacus/checkout/scheduled-replenishment/assets';
 import { CheckoutScheduledReplenishmentRootModule } from '@spartacus/checkout/scheduled-replenishment/root';
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
@@ -24,19 +25,19 @@ import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: checkoutTranslations,
+        resources: { en: checkoutTranslationsEn, de: checkoutTranslationsDe },
         chunks: checkoutTranslationChunksConfig,
       },
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: checkoutB2BTranslations,
+        resources: { en: checkoutB2BTranslationsEn, de: checkoutB2BTranslationsDe },
         chunks: checkoutB2BTranslationChunksConfig,
       },
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: checkoutScheduledReplenishmentTranslations,
+        resources: { en: checkoutScheduledReplenishmentTranslationsEn, de: checkoutScheduledReplenishmentTranslationsDe },
         chunks: checkoutScheduledReplenishmentTranslationChunksConfig,
       },
     }),

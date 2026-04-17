@@ -1,7 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ContentfulLivePreview, ContentfulLivePreviewInitConfig, LivePreviewProps } from '@contentful/live-preview';
-import { InspectorModeDataAttributes, InspectorModeTags } from '@contentful/live-preview/dist/inspectorMode/types';
-
+import { ContentfulLivePreview, ContentfulLivePreviewInitConfig, LivePreviewProps, InspectorModeDataAttributes, type InspectorModeTags } from '@contentful/live-preview';
 import { ContentfulAngularService } from './contentful-angular.service';
 
 describe('ContentfulAngularService', () => {

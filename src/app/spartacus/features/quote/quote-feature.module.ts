@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
-import { quoteTranslationChunksConfig, quoteTranslations } from '@spartacus/quote/assets';
+import { quoteTranslationChunksConfig, quoteTranslationsDe, quoteTranslationsEn } from '@spartacus/quote/assets';
 import { QUOTE_CART_GUARD_FEATURE, QUOTE_FEATURE, QUOTE_REQUEST_FEATURE, QuoteRootModule } from '@spartacus/quote/root';
 
 @NgModule({
@@ -31,7 +31,7 @@ import { QUOTE_CART_GUARD_FEATURE, QUOTE_FEATURE, QUOTE_REQUEST_FEATURE, QuoteRo
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: quoteTranslations,
+        resources: { en: quoteTranslationsEn, de: quoteTranslationsDe },
         chunks: quoteTranslationChunksConfig,
       },
     }),

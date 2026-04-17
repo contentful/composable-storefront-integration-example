@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
 import {
   organizationUserRegistrationTranslationChunksConfig,
-  organizationUserRegistrationTranslations,
+  organizationUserRegistrationTranslationsDe,
+  organizationUserRegistrationTranslationsEn,
 } from '@spartacus/organization/user-registration/assets';
 import { ORGANIZATION_USER_REGISTRATION_FEATURE, OrganizationUserRegistrationRootModule } from '@spartacus/organization/user-registration/root';
 
@@ -20,7 +21,7 @@ import { ORGANIZATION_USER_REGISTRATION_FEATURE, OrganizationUserRegistrationRoo
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: organizationUserRegistrationTranslations,
+        resources: { en: organizationUserRegistrationTranslationsEn, de: organizationUserRegistrationTranslationsDe },
         chunks: organizationUserRegistrationTranslationChunksConfig,
       },
     }),

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone, Renderer2 } from '@angular/core';
-import { InspectorModeDataAttributes, InspectorModeEntryTags } from '@contentful/live-preview/dist/inspectorMode/types';
-import { Argument } from '@contentful/live-preview/dist/types';
+import { InspectorModeDataAttributes, type InspectorModeEntryTags, type Argument } from '@contentful/live-preview';
 import { Store } from '@ngrx/store';
 
 import {

@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 
 import { CmsConfig, I18nConfig, provideConfig } from '@spartacus/core';
-import { customerTicketingTranslationChunksConfig, customerTicketingTranslations } from '@spartacus/customer-ticketing/assets';
+import {
+  customerTicketingTranslationChunksConfig,
+  customerTicketingTranslationsDe,
+  customerTicketingTranslationsEn,
+} from '@spartacus/customer-ticketing/assets';
 import { CUSTOMER_TICKETING_FEATURE, CustomerTicketingRootModule } from '@spartacus/customer-ticketing/root';
 
 @NgModule({
@@ -17,7 +21,7 @@ import { CUSTOMER_TICKETING_FEATURE, CustomerTicketingRootModule } from '@sparta
     }),
     provideConfig(<I18nConfig>{
       i18n: {
-        resources: customerTicketingTranslations,
+        resources: { en: customerTicketingTranslationsEn, de: customerTicketingTranslationsDe },
         chunks: customerTicketingTranslationChunksConfig,
       },
     }),
