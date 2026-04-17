@@ -6,21 +6,16 @@
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "isolatedModules": true,
+    // "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "ES2022",
+    "target": "es2024",
     "module": "preserve"
-    // "outDir": "./dist/out-tsc",
-    // "esModuleInterop": true,
-    // "resolveJsonModule": true,
-    // "sourceMap": true,
-    // "declaration": false,
-    // "moduleResolution": "bundler",
-    // "useDefineForClassFields": false
+    // "module": "es2022",
+    // "moduleResolution": "node",
+    // "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

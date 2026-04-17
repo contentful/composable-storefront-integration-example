@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ContentfulLivePreview, ContentfulLivePreviewInitConfig, LivePreviewProps } from '@contentful/live-preview';
-import { Argument, SubscribeCallback } from '@contentful/live-preview/dist/types';
+import { ContentfulLivePreview, ContentfulLivePreviewInitConfig, LivePreviewProps, type Argument, type SubscribeCallback } from '@contentful/live-preview';
 
 interface Options {
   locale?: string;
